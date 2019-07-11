@@ -44,7 +44,8 @@ CREATE TABLE cake_product(
 CREATE TABLE cake_catalogue(
   cid INT PRIMARY KEY AUTO_INCREMENT,
   cname VARCHAR(32),                                        #分类的名称
-  series VARCHAR(32)                                        #属于的系列
+  series VARCHAR(32),                                       #属于的系列
+  pic VARCHAR(128)                                          #系列图片
 );
 
 /** 商品规格 **/
@@ -110,3 +111,22 @@ CREATE TABLE cake_receiver_address(
   tag VARCHAR(16),                                        #标签名
   is_default BOOLEAN                                      #是否为当前用户的默认收货地址
 );
+
+
+
+/** 录入数据 **/
+/** 商品家族(分类) **/
+INSERT INTO cake_catalogue VALUE
+(NULL,"蛋糕","经典系列",NULL),
+(NULL,"蛋糕","当季新款",NULL),
+(NULL,"蛋糕","MINI系列",NULL),
+(NULL,"蛋糕","成人系列",NULL),
+(NULL,"蛋糕","童真系列",NULL),
+(NULL,"蛋糕","多重蛋糕",NULL),
+(NULL,"小食","NULL",NULL),
+(NULL,"甜点","NULL",NULL),
+(NULL,"礼盒","NULL",NULL),
+(NULL,"生日配件","NULL",NULL),
+(NULL,"积分换购","NULL",NULL),
+(NULL,"甜品台布置","NULL",NULL),
+(NULL,"周末半价日","NULL",NULL);

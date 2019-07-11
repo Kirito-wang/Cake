@@ -54,6 +54,10 @@ export default {
   created() {
     // 加载第一个区域
     this.right_list = this.left_list[this.selectedLabel];
+    // 请求数据
+    this.axios.get("product/classify").then(result => {
+      console.log(result);
+    });
   },
   methods: {
     changeHandler(label) {
