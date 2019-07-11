@@ -11,7 +11,7 @@
         <cube-scroll>
           <cube-tab-bar
             v-model="selectedLabel"
-            :data="Object.keys(left_list).map(label => ({label}))"
+            :data="left_list.name"
             @change="changeHandler"
           ></cube-tab-bar>
         </cube-scroll>
@@ -37,16 +37,7 @@ export default {
       value: "",
       // 默认数据(搜索的关键字)
       defaultResult: ["蛋糕", "123", "1", "124567"],
-      left_list: {
-        蛋糕: [{ name: "蛋糕", pic: "images/1.jspg" }],
-        小食: [{ name: "小食", pic: "images/1.jspg" }],
-        甜点: [{ name: "甜点", pic: "images/1.jspg" }],
-        礼盒: [{ name: "礼盒", pic: "images/1.jspg" }],
-        生日配件: [{ name: "生日配件", pic: "images/1.jspg" }],
-        积分换购: [{ name: "积分换购", pic: "images/1.jspg" }],
-        甜点台布置: [{ name: "甜点台布置", pic: "images/1.jspg" }],
-        周末半价日: [{ name: "周末半价日", pic: "images/1.jspg" }]
-      },
+      left_list: {},
       right_list: [],
       selectedLabel: "蛋糕"
     };
@@ -56,7 +47,9 @@ export default {
     this.right_list = this.left_list[this.selectedLabel];
     // 请求数据
     this.axios.get("product/classify").then(result => {
-      console.log(result);
+      console.log(result.data.msg);
+      this.left_list = result.data.msg;
+      console.log(Object.keys(this.left_list).map(label => ({label})))
     });
   },
   methods: {
