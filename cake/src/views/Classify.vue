@@ -23,7 +23,7 @@
         <ul>
           <li v-for="(elem,i) in right_list" :key="i">
             <a href v-if="elem.series!='NULL'">
-              <img src="images/1.jpg" />
+              <img src="images/1.png" />
               <span v-text="elem.series"></span>
             </a>
           </li>
@@ -47,7 +47,7 @@ export default {
   created() {
     // 请求数据
     this.axios.get("product/classify").then(result => {
-      console.log(result.data.msg);
+      // console.log(result.data.msg);
       var msg = result.data.msg;
       // 请求回来的数据格式不是我想要的数据格式要转成:
       // left_list: {蛋糕:[{name:"蛋糕",pic:"images/1.jspg"},...],...,...,}
