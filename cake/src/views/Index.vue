@@ -4,7 +4,7 @@
       <mt-tab-container v-model="active">
         <!-- 首页 -->
         <mt-tab-container-item id="myIndex">
-          <div style="text-align: center;;width:100%">
+          <div class="myIndexBotton" style="text-align: center;;width:100%">
             <h1 style="margin:10px auto">首页</h1>
             <!-- 搜索 -->
             <div class="mySearch">
@@ -108,7 +108,7 @@
                 <span class="price">998</span>
               </router-link>
             </div>
-            <div style="height:30px;"></div>
+            <div style="height:1.464rem;"></div>
             <!-- index -->
           </div>
         </mt-tab-container-item>
@@ -117,21 +117,30 @@
           <classify></classify>
         </mt-tab-container-item>
         <!-- 购物车 -->
-        <mt-tab-container-item id="MyCart">
+        <mt-tab-container-item id="myCart">
           <cart></cart>
         </mt-tab-container-item>
         <!-- 个人中心 -->
-        <mt-tab-container-item id="me">
+        <mt-tab-container-item id="me" :style="`height:${resizeHeight}px`">
           <own></own>
         </mt-tab-container-item>
       </mt-tab-container>
 
       <!-- 底部 -->
       <mt-tabbar v-model="active" fixed>
-        <mt-tab-item id="myIndex">首页</mt-tab-item>
-        <mt-tab-item id="myProduct">所有商品</mt-tab-item>
-        <mt-tab-item id="MyCart">购物车</mt-tab-item>
-        <mt-tab-item id="me">个人中心</mt-tab-item>
+        <mt-tab-item id="myIndex">
+          <!-- <img slot="icon" src="images/1.jpg" /> -->
+          <span slot="icon" class="iconfont myicon">&#xe604;</span>首页
+        </mt-tab-item>
+        <mt-tab-item id="myProduct">
+          <span slot="icon" class="iconfont myicon">&#xe632;</span>所有商品
+        </mt-tab-item>
+        <mt-tab-item id="myCart">
+          <span slot="icon" class="iconfont myicon">&#xe611;</span>购物车
+        </mt-tab-item>
+        <mt-tab-item id="me">
+          <span slot="icon" class="iconfont myicon">&#xe615;</span>个人中心
+        </mt-tab-item>
       </mt-tabbar>
     </div>
   </div>
@@ -144,13 +153,14 @@ import Own from "./Own";
 export default {
   data() {
     return {
-      active: "MyCart",
+      active: "myIndex",
       // 屏幕的高度
       resizeHeight: 650
     };
   },
   created() {
     // 屏幕可用区域变化时执行
+    this.resizeHeight = screen.availHeight;
     window.addEventListener("resize", () => {
       this.resizeHeight = screen.availHeight;
     });
@@ -303,5 +313,13 @@ img {
 /* 搜索框的文字样式 */
 .mySearch .mint-searchbar-core {
   font-size: 14px !important;
+}
+/* 底部icon图标 */
+.myicon {
+  font-size: 22px;
+}
+/* 底部选项卡的高度 */
+.mint-tabbar.is-fixed{
+  height: 1.464rem;
 }
 </style>

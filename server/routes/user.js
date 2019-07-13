@@ -16,9 +16,9 @@ router.post("/reg", (req, res) => {
     return;
   }
   // 不能纯英文字母,不能纯数字,不能有空格的8到16位密码
-  var reg2 = /\s|^[a-zA-Z]{8,16}$|^\d{8,16}$/;
-  // true 密码格式不正确,  false 密码格式正确
-  if (reg2.test(upwd)) {
+  var reg2 = /^(?![0-9]+$)(?![a-zA-Z]+$)(?![\W_]+$)[0-9A-Za-z\W_]{8,16}$/;
+  // true 密码格式不正确, false 密码格式正确
+  if (!upwd || reg2.test(upwd) == false) {
     res.send({ code: 400, msg: "密码格式不正确" });
     return;
   }
@@ -27,7 +27,6 @@ router.post("/reg", (req, res) => {
   pool.query(sql, [phone], (err, result) => {
     if (err) throw err;
     if (result.length > 0) {
-      console.log(123)
       res.send({ code: 400, msg: "该手机号已经注册" });
     } else {
       var sql2 = "INSERT INTO cake_user VALUE(NULL,NULL,?,md5(?),DEFAULT,DEFAULT)";
@@ -66,12 +65,14 @@ router.post("/login", (req, res) => {
       // session 的登陆id
       req.session.uid = result[0].uid;
       console.log(req.session.uid)
-      res.send({ code: 200, msg: result[0] });
+      res.send({ code: 200, data: result });
     } else {
       res.send({ code: 400, msg: "用户名或密码错误" });
     }
   })
-})
+});
+
+
 
 
 
