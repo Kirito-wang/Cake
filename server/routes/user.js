@@ -29,7 +29,8 @@ router.post("/reg", (req, res) => {
     if (result.length > 0) {
       res.send({ code: 400, msg: "该手机号已经注册" });
     } else {
-      var sql2 = "INSERT INTO cake_user VALUE(NULL,NULL,?,md5(?),DEFAULT,DEFAULT)";
+      var sql2 = `INSERT INTO cake_user VALUE
+                  (NULL,NULL,?,md5(?),DEFAULT,NULL,NULL,DEFAULT,NULL)`;
       pool.query(sql2, [phone, upwd], (err, result) => {
         if (err) throw err;
         if (result.affectedRows > 0) {
@@ -58,7 +59,7 @@ router.post("/login", (req, res) => {
     return;
   }
 
-  var sql = "SELECT uid,uname,phone FROM cake_user WHERE phone=? AND upwd=md5(?)";
+  var sql = "SELECT uid FROM cake_user WHERE phone=? AND upwd=md5(?)";
   pool.query(sql, [phone, upwd], (err, result) => {
     if (err) throw err;
     if (result.length > 0) {
@@ -72,6 +73,29 @@ router.post("/login", (req, res) => {
   })
 });
 
+
+// 个人中心 /own
+router.post("/own", (req, res) => {
+  var uid = req.body.uid;
+
+  if (!uid) {
+    res.send({ code: 400, msg: "没有登录,请先登录" });
+    return;
+  }
+
+  var sql = `SELECT uname,phone,avatar,real_name,birthday,gender FROM cake_user 
+  WHERE uid=?`;
+  pool.query(sql, [uid], (err, result) => {
+    if (err) throw err;
+    if (result.length > 0) {
+      // session 的登陆id
+      req.session.uid = result.uid;
+      res.send({ code: 200, data: result });
+    } else {
+      res.send({ code: 400, msg: "没有该用户存在,请先注册" });
+    }
+  })
+})
 
 
 
