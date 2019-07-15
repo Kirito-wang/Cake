@@ -7,7 +7,7 @@ var router = express.Router();
 
 // 商品分类的路由
 router.get("/classify", (req, res) => {
-  var sql = "SELECT cname,series,pic FROM cake_catalogue";
+  var sql = "SELECT cid,cname,series,pic FROM cake_catalogue";
   pool.query(sql, (err, result) => {
     if (err) throw err;
     if (result.length > 0) {
@@ -66,6 +66,18 @@ router.get("/details", (req, res) => {
     })
   });
 });
+
+
+// 热门搜索的数据展示为浏览量高的商品
+// 预览量大于100的取前十条数据到热门搜索进行展示
+router.get("/search", (req, res) => {
+  var sql = `SELECT * FROM cake_product WHERE read_num>100 order by read_num desc limit 0,10`;
+  pool.query(sql, [], (err, result) => {
+    if (err) throw err;
+    console.log(result)
+    res.send(result)
+  })
+})
 
 
 

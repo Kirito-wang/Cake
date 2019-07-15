@@ -2,7 +2,6 @@
   <div class="cart">
     <h1 class="title">购物车</h1>
     <div class="cart_box" v-for="(item,index) of list" :key="index">
-      
       <label for="input" @click="Selected">
         <input type="checkbox" class="input" v-model="item.selected" />
         <span class="input_sp input_red" v-if="item.selected" @click="radios(index)"></span>
@@ -177,15 +176,15 @@ export default {
 .none {
   display: none;
 }
-.title{
+.cart .title {
   text-align: center;
   /* display: block; */
-  color:#303030;
-  height:30px;
+  color: #303030;
+  height: 30px;
   font-weight: bold;
-  background:#ffffff;
+  background: #ffffff;
   line-height: 30px;
-  padding:3px 0 3px 0;
+  padding: 3px 0 3px 0;
   font-size: 22px;
 }
 .cart {

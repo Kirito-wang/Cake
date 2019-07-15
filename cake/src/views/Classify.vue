@@ -68,6 +68,7 @@ export default {
         }
       }
       this.left_list = obj_list;
+      // console.log(this.left_list)
       // 加载第一个区域
       this.selectedLabel = Object.keys(this.left_list)[0];
       this.right_list = this.left_list[this.selectedLabel];

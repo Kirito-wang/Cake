@@ -62,8 +62,12 @@ export default {
     login() {
       // 跳转到登陆页
       this.$router.push("/Login");
-    }
+    },
     // 退出登录
+    logout() {
+      sessionStorage.clear("uid");
+      this.uphone = "";
+    }
   }
 };
 </script>

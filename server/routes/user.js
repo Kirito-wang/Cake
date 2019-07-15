@@ -95,6 +95,20 @@ router.post("/own", (req, res) => {
       res.send({ code: 400, msg: "没有该用户存在,请先注册" });
     }
   })
+});
+
+// 个人信息 /set
+router.post("/set", (req, res) => {
+  var uid = req.session.uid;
+  var real_name = req.body.real_name;
+  var gender = req.body.gender;
+  var birthday = req.body.birthday;
+  var sql = `UPDATE cake_user SET real_name=?,gender=?,birthday=? WHERE uid=uid`
+  pool.query(sql, [real_name, gender, birthday, uid], (err, result) => {
+    if (err) throw err;
+    console.log(result)
+    res.send(result)
+  })
 })
 
 

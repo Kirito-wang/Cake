@@ -74,7 +74,7 @@
             <!-- 小食 -->
             <div class="snack-list clearfix">
               <span class="snack-title">小食</span>
-              <router-link to="###" class="product-more">更多</router-link>
+              <router-link to="###" class="product-more">更多&gt;</router-link>
             </div>
             <div class="snack-list clearfix" style="margin-bottom: 15px;">
               <ul class="mylist">
@@ -141,7 +141,11 @@ export default {
       product_list: []
     };
   },
+  // props: ["old_active"],
   created() {
+    // 有其他页面返回到首页时,去到特定的页面
+    // if(this)
+    // console.log(this.old_active);
     // 屏幕可用区域变化时执行 (分类的高度需要与屏幕高度一样)
     this.resizeHeight = screen.availHeight;
     window.addEventListener("resize", () => {
@@ -166,6 +170,10 @@ export default {
   methods: {
     detail() {
       this.active = "myProduct";
+    },
+    select_active: function(bool) {
+      this.active = bool;
+      console.log(bool)
     }
   }
 };
@@ -279,7 +287,7 @@ img {
   height: 116px;
 }
 .snack-list .snack-title {
-  /* float: left; */
+  float: left;
   text-align: left;
   width: 50%;
 }

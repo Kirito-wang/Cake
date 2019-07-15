@@ -11,7 +11,7 @@ CREATE TABLE cake_user(
   upwd VARCHAR(32),                                           #登陆密码
   avatar VARCHAR(128) DEFAULT "默认一张登陆后的头像",           #头像
   real_name VARCHAR(50),                                      #真实姓名
-  birthday DATE,                                              #生日日期
+  birthday VARCHAR(32),                                              #生日日期
   integral INT DEFAULT 0,                                     #积分(默认开始为0)
   gender INT                                                  #性别  0-女  1-男
 );
@@ -55,8 +55,8 @@ CREATE TABLE cake_spec(
   sid INT PRIMARY KEY AUTO_INCREMENT,
   pid INT,                                                 #商品的id
   size VARCHAR(16),                                        #尺寸
-  price DECIMAL(10,2),                                       #价格
-  is_state VARCHAR(3),                                        #状态(预定:0,现货:1) -1:没有状态
+  price DECIMAL(10,2),                                     #价格
+  is_state VARCHAR(3),                                     #状态(预定:0,现货:1) -1:没有状态
   style VARCHAR(32),                                       #商品款式
   fruit VARCHAR(32),                                       #水果
   else_message VARCHAR(36),                                #其他的信息(其他无法归类的)
@@ -209,8 +209,8 @@ INSERT INTO cake_product VALUE
 (75,8,"和果实",28,"images/product/sdfsdf156.jpg",0,0,NULL,NULL,1),
 (76,8,"香橙",58,"images/product/456456yfgh.jpg",0,0,NULL,NULL,1),
 (77,8,"冷卒 300ml",45,"images/product/sd456456456.jpg",0,0,NULL,NULL,1),
-(78,10,"如山如海·男生礼盒",518,"images/product/sd456456456.jpg",0,0,NULL,NULL,1),
-(79,10,"奔向自然",45,"images/product/sd456456456.jpg",0,0,NULL,NULL,1),
+(78,10,"如山如海·男生礼盒",518,"images/product/6612852151df.jpg",0,0,NULL,NULL,1),
+(79,10,"奔向自然",45,"images/product/6612852151df.jpg",0,0,NULL,NULL,1),
 (80,10,"情书",168,"images/product/124235345ijij.jpg",0,0,NULL,NULL,1),
 (81,11,"数字蜡烛",2,"images/product/shzi234234.jpg",0,0,NULL,NULL,1),
 (82,11,"生日帽",8,"images/product/shrm111.jpg",0,0,NULL,NULL,1),
@@ -218,7 +218,7 @@ INSERT INTO cake_product VALUE
 
 
 /*商品规格*/
-INSERT INTO cake_spec value
+INSERT INTO cake_spec VALUE
 (NULL,1,"4寸",198,-1,NULL,"芒果",NULL,97), 
 (NULL,1,"5寸",139,-1,NULL,"芒果",NULL,97), 
 (NULL,1,"6寸",188,-1,NULL,"芒果",NULL,97),
@@ -462,35 +462,35 @@ INSERT INTO cake_spec value
 (NULL,59,"8寸",349,-1,NULL,"澳洲水蜜桃",NULL,97),
 (NULL,59,"6寸",258,-1,NULL,"菲律宾香蕉",NULL,97),
 (NULL,59,"8寸",349,-1,NULL,"菲律宾香蕉",NULL,97),
-(NULL,60,"原味",48,0,NULL,NULL,NULL,97),
+(NULL,60,"原味",48,0,NULL,NULL,NULL,0),
 (NULL,60,"原味",48,1,NULL,NULL,NULL,97),
-(NULL,60,"咖啡",48,0,NULL,NULL,NULL,97),
+(NULL,60,"咖啡",48,0,NULL,NULL,NULL,0),
 (NULL,60,"咖啡",48,1,NULL,NULL,NULL,97),
-(NULL,60,"抹茶",48,0,NULL,NULL,NULL,97),
+(NULL,60,"抹茶",48,0,NULL,NULL,NULL,0),
 (NULL,60,"抹茶",48,1,NULL,NULL,NULL,97),
-(NULL,61,NULL,48,0,NULL,NULL,NULL,97),
+(NULL,61,NULL,48,0,NULL,NULL,NULL,0),
 (NULL,61,NULL,48,1,NULL,NULL,NULL,97),
-(NULL,62,NULL,85,0,NULL,NULL,NULL,97),
+(NULL,62,NULL,85,0,NULL,NULL,NULL,0),
 (NULL,62,NULL,85,1,NULL,NULL,NULL,97),
-(NULL,63,"三种口味混合装",48,0,NULL,NULL,NULL,97),
+(NULL,63,"三种口味混合装",48,0,NULL,NULL,NULL,0),
 (NULL,63,"三种口味混合装",48,1,NULL,NULL,NULL,97),
-(NULL,63,"原味",48,0,NULL,NULL,NULL,97),
+(NULL,63,"原味",48,0,NULL,NULL,NULL,0),
 (NULL,63,"原味",48,1,NULL,NULL,NULL,97),
-(NULL,63,"抹茶",58,0,NULL,NULL,NULL,97),
+(NULL,63,"抹茶",58,0,NULL,NULL,NULL,0),
 (NULL,63,"抹茶",58,1,NULL,NULL,NULL,97),
-(NULL,63,"可可",48,0,NULL,NULL,NULL,97),
+(NULL,63,"可可",48,0,NULL,NULL,NULL,0),
 (NULL,63,"可可",48,1,NULL,NULL,NULL,97),
-(NULL,64,NULL,68,0,NULL,NULL,NULL,97),
+(NULL,64,NULL,68,0,NULL,NULL,NULL,0),
 (NULL,64,NULL,68,1,NULL,NULL,NULL,97),
-(NULL,65,NULL,68,0,NULL,NULL,NULL,97),
+(NULL,65,NULL,68,0,NULL,NULL,NULL,0),
 (NULL,65,NULL,68,1,NULL,NULL,NULL,97),
-(NULL,66,NULL,68,0,NULL,NULL,NULL,97),
+(NULL,66,NULL,68,0,NULL,NULL,NULL,0),
 (NULL,66,NULL,68,1,NULL,NULL,NULL,97),
-(NULL,67,NULL,108,0,NULL,NULL,NULL,97),
+(NULL,67,NULL,108,0,NULL,NULL,NULL,0),
 (NULL,67,NULL,108,1,NULL,NULL,NULL,97),
-(NULL,68,NULL,88,0,NULL,NULL,NULL,97),
+(NULL,68,NULL,88,0,NULL,NULL,NULL,0),
 (NULL,68,NULL,88,1,NULL,NULL,NULL,97),
-(NULL,69,"8寸",398,-1,NULL,"芒果",NULL,97),
+(NULL,69,"8寸",398,-1,NULL,"芒果",NULL,0),
 (NULL,69,"8寸",398,-1,NULL,"水蜜桃",NULL,97),
 (NULL,69,"8寸",398,-1,NULL,"香蕉",NULL,97),
 (NULL,69,"8寸",398,-1,NULL,"荔枝",NULL,97),
