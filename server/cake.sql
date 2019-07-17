@@ -123,6 +123,13 @@ CREATE TABLE cake_index_carousel(
   pid INT                                                 #商品的id
 );
 
+/*用户历史搜索记录表*/
+CREATE TABLE user_search(
+iid INT PRIMARY KEY AUTO_INCREMENT,
+uid INT, #用户id
+pname VARCHAR(128) #用户搜索的数据
+);
+
 
 /** 录入数据 **/
 
@@ -132,15 +139,15 @@ INSERT INTO cake_index_carousel VALUE
 
 /** 商品表 **/
 INSERT INTO cake_product VALUE
-(1,1,"芒果戚风",108,"images/product/64sd78f5465sda4159.jpg",0,0,NULL,NULL,1),
+(1,1,"芒果戚风",108,"images/product/64sd78f5465sda4159.jpg",0,105,NULL,NULL,1),
 (2,1,"胡萝卜粗粮戚风",108,"images/product/64sd78f5465sda4158.jpg",0,0,NULL,NULL,1),
-(3,1,"榴莲戚风",228,"images/product/64sd78f5465sda4158.jpg",0,0,NULL,NULL,1),
+(3,1,"榴莲戚风",228,"images/product/64sd78f5465sda4158.jpg",0,199,NULL,NULL,1),
 (4,1,"提拉米苏",188,"images/product/64sd78f5465sda4165.jpg",0,0,NULL,NULL,1),
 (5,1,"小森林",188,"images/product/64sd78f5465sda4156.jpg",0,0,NULL,NULL,1),
 (6,1,"泡芙黑森林",108,"images/product/64sd78f5465sda4156.jpg",0,0,NULL,NULL,1),
 (7,1,"草莓黑森林",108,"images/product/64sd78f5465sda4154.jpg",0,0,NULL,NULL,1),
 (8,1,"原味切达芝士",208,"images/product/64sd78f5465sda4168.jpg",0,0,NULL,NULL,1),
-(9,1,"抹茶酸奶芝士",208,"images/product/64sd78f5465sda4162.jpg",0,0,NULL,NULL,1),
+(9,1,"抹茶酸奶芝士",208,"images/product/64sd78f5465sda4162.jpg",0,200,NULL,NULL,1),
 (10,1,"榛子慕斯",208,"images/product/64sd78f5465sda4169.jpg",0,0,NULL,NULL,1),
 (11,1,"红茶千层",188,"images/product/64sd78f5465sda4155.jpg",0,0,NULL,NULL,1),
 (12,1,"抹茶千层",188,"images/product/64sd78f5465sda4161.jpg",0,0,NULL,NULL,1),
@@ -150,7 +157,7 @@ INSERT INTO cake_product VALUE
 (16,2,"紫米奶茶戚风",139,"images/product/64sd78f5465sda4144.jpg",0,0,NULL,NULL,0),
 (17,2,"春日花花(加高版)",168,"images/product/64sd78f5465sda4127.jpg",0,0,NULL,NULL,1),
 (18,2,"山海·榛子慕斯",198,"images/product/64sd78f5465sda4139.jpg",0,0,NULL,NULL,1),
-(19,2,"Pink Dream(加高款)",268,"images/product/64sd78f5465sda4123.jpg",0,0,NULL,NULL,1),
+(19,2,"Pink Dream(加高款)",268,"images/product/64sd78f5465sda4123.jpg",0,300,NULL,NULL,1),
 (20,2,"树莓荔枝戚风",198,"images/product/64sd78f5465sda4140.jpg",0,0,NULL,NULL,1),
 (21,2,"芒果百香果戚风",198,"images/product/64sd78f5465sda4133.jpg",0,0,NULL,NULL,1),
 (22,2,"日和",468,"images/product/64sd78f5465sda4137.jpg",0,0,NULL,NULL,1),
@@ -160,7 +167,7 @@ INSERT INTO cake_product VALUE
 (26,2,"消夏小盹(加高版)",218,"images/product/64sd78f5465sda4141.jpg",0,0,NULL,NULL,1),
 (27,2,"加州花园",268,"images/product/64sd78f5465sda4131.jpg",0,0,NULL,NULL,1),
 (28,2,"蜜桃红茶戚风",158,"images/product/64sd78f5465sda4135.jpg",0,0,NULL,NULL,1),
-(29,2,"Cupcakes-春天",108,"images/product/64sd78f5465sda4122.jpg",0,0,NULL,NULL,1),
+(29,2,"Cupcakes-春天",108,"images/product/64sd78f5465sda4122.jpg",0,260,NULL,NULL,1),
 (30,2,"花与爱丽丝",168,"images/product/64sd78f5465sda4130.jpg",0,0,NULL,NULL,1),
 (31,2,"班兰戚风",208,"images/product/64sd78f5465sda4125.jpg",0,0,NULL,NULL,1),
 (32,2,"芒果夏洛特",218,"images/product/64sd78f5465sda4134.jpg",0,0,NULL,NULL,1),
@@ -168,17 +175,17 @@ INSERT INTO cake_product VALUE
 (34,2,"栗子戚风",118,"images/product/64sd78f5465sda4132.jpg",0,0,NULL,NULL,1),
 (35,2,"桂花红茶戚风",198,"images/product/64sd78f5465sda4128.jpg",0,0,NULL,NULL,1),
 (36,2,"班兰芒果戚风",118,"images/product/64sd78f5465sda4124.jpg",0,0,NULL,NULL,1),
-(37,2,"海盐焦糖戚风",168,"images/product/64sd78f5465sda4142.jpg",0,0,NULL,NULL,1),
+(37,2,"海盐焦糖戚风",168,"images/product/64sd78f5465sda4142.jpg",0,300,NULL,NULL,1),
 (38,2,"纸杯蛋糕组合装",198,"images/product/64sd78f5465sda4143.jpg",0,0,NULL,NULL,1),
 (39,3,"红茶杏仁戚风",139,"images/product/64sd78f5465sda411.jpg",0,0,NULL,NULL,1),
 (40,3,"迷迭可可戚风",58,"images/product/64sd78f5465sda412.jpg",0,0,NULL,NULL,1),
-(41,4,"女王大人(加高版)",228,"images/product/64sd78f5465sda412.jpg",0,0,NULL,NULL,1),
+(41,4,"女王大人(加高版)",228,"images/product/64sd78f5465sda412.jpg",0,159,NULL,NULL,1),
 (42,4,"桔梗",218,"images/product/64sd78f5465sda417.jpg",0,0,NULL,NULL,1),
 (43,4,"二人",188,"images/product/64sd78f5465sda417.jpg",0,0,NULL,NULL,1),
 (44,4,"领结",149,"images/product/64sd78f5465sda4113.jpg",0,0,NULL,NULL,1),
 (45,4,"圣诞树",139,"images/product/64sd78f5465sda4117.jpg",0,0,NULL,NULL,1),
 (46,4,"皇冠",198,"images/product/64sd78f5465sda416.jpg",0,0,NULL,NULL,1),
-(47,4,"春天里(加高版)",188,"images/product/64sd78f5465sda414.jpg",0,0,NULL,NULL,1),
+(47,4,"春天里(加高版)",188,"images/product/64sd78f5465sda414.jpg",0,300,NULL,NULL,1),
 (48,4,"蓝灰(加高版)",188,"images/product/64sd78f5465sda4111.jpg",0,0,NULL,NULL,1),
 (49,4,"水泥森林",139,"images/product/64sd78f5465sda4119.jpg",0,0,NULL,NULL,1),
 (50,4,"蓝粉皇冠",198,"images/product/64sd78f5465sda4110.jpg",0,0,NULL,NULL,1),
@@ -189,7 +196,7 @@ INSERT INTO cake_product VALUE
 (55,4,"寿",239,"images/product/64sd78f5465sda4118.jpg",0,0,NULL,NULL,1),
 (56,4,"马里奥",158,"images/product/64sd78f5465sda4114.jpg",0,0,NULL,NULL,1),
 (57,4,"蓝色狂想",218,"images/product/64sd78f5465sda4112.jpg",0,0,NULL,NULL,1),
-(58,4,"绝地求生",188,"images/product/64sd78f5465sda419.jpg",0,0,NULL,NULL,1),
+(58,4,"绝地求生",188,"images/product/64sd78f5465sda419.jpg",0,200,NULL,NULL,1),
 (59,4,"绝地求生(加高版)",218,"images/product/64sd78f5465sda418.jpg",0,0,NULL,NULL,1),
 (60,7,"曲奇(200g)",48,"images/product/64sd78f5465sda4175.jpg",0,0,NULL,NULL,1),
 (61,7,"意大利饼干(400g)",78,"images/product/64sd78f5465sda41103.jpg",0,0,NULL,NULL,1),
@@ -203,17 +210,17 @@ INSERT INTO cake_product VALUE
 (69,5,"MICKEY",398,"images/product/64sd78f5465sda4178.jpg",0,0,NULL,NULL,1),
 (70,5,"小飞象",228,"images/product/64sd78f5465sda4195.jpg",0,0,NULL,NULL,1),
 (71,5,"lron Man",218,"images/product/64sd78f5465sda4177.jpg",0,0,NULL,NULL,1),
-(72,6,"冰雪奇缘",728,"images/product/64sd78f5465sda4145.jpg",0,0,NULL,NULL,1),
+(72,6,"冰雪奇缘",728,"images/product/64sd78f5465sda4145.jpg",0,266,NULL,NULL,1),
 (73,6,"漫威世界",668,"images/product/64sd78f5465sda4148.jpg",0,0,NULL,NULL,1),
 (74,6,"跨越无人区",688,"images/product/64sd78f5465sda4147.jpg",0,0,NULL,NULL,1),
 (75,8,"和果实",28,"images/product/sdfsdf156.jpg",0,0,NULL,NULL,1),
-(76,8,"香橙",58,"images/product/456456yfgh.jpg",0,0,NULL,NULL,1),
+(76,8,"香橙",58,"images/product/456456yfgh.jpg",0,399,NULL,NULL,1),
 (77,8,"冷卒 300ml",45,"images/product/sd456456456.jpg",0,0,NULL,NULL,1),
 (78,10,"如山如海·男生礼盒",518,"images/product/6612852151df.jpg",0,0,NULL,NULL,1),
 (79,10,"奔向自然",45,"images/product/6612852151df.jpg",0,0,NULL,NULL,1),
 (80,10,"情书",168,"images/product/124235345ijij.jpg",0,0,NULL,NULL,1),
 (81,11,"数字蜡烛",2,"images/product/shzi234234.jpg",0,0,NULL,NULL,1),
-(82,11,"生日帽",8,"images/product/shrm111.jpg",0,0,NULL,NULL,1),
+(82,11,"生日帽",8,"images/product/shrm111.jpg",0,333,NULL,NULL,1),
 (83,11,"保温袋",15,"images/product/baoxiandai555.jpg",0,0,NULL,NULL,1);
 
 

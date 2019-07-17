@@ -34,6 +34,8 @@
   </div>
 </template>
 <script>
+// 导入eventBus 兄弟之间通信
+import eventBus from "../eventBus.js";
 export default {
   // 返回上一级 是回到个人中心页
   // props:{
@@ -45,15 +47,17 @@ export default {
       phone: "",
       real_name: "",
       gender: "",
-      birthday: "" //日期组件选中的值
+      birthday: "", //日期组件选中的值
+      isFirstEnter: false // 是否第一次进入，默认false
     };
   },
   created() {
+    this.isFirstEnter = true;
     // 获取该用户的个人信息
     var uid = sessionStorage.getItem("uid");
     if (uid) {
       this.axios.post("/user/own", `uid=${uid}`).then(result => {
-        console.log(result);
+        // console.log(result);
         this.phone = result.data.data[0].phone;
         this.real_name = result.data.data[0].real_name;
         this.real_name = this.real_name == null ? "" : this.real_name;
@@ -74,7 +78,8 @@ export default {
   },
   methods: {
     jump() {
-      this.$router.go(-1);
+      this.$router.push("/Index");
+      eventBus.$emit("activeState", "me");
     },
     showFormatPicker() {
       if (!this.formatPicker) {
@@ -113,10 +118,10 @@ export default {
           `uid=${uid}&real_name=${this.real_name}&gender=${this.gender}&birthday=${this.birth2}`
         )
         .then(result => {
-          console.log(result);
+          // console.log(result);
         });
     }
-  }
+  },
 };
 </script>
 <style>

@@ -73,6 +73,24 @@ router.post("/login", (req, res) => {
   })
 });
 
+//忘记密码-修改密码
+router.post("/loseP", (req, res) => {
+  var phone = req.body.phone;
+  var upwd = req.body.upwd;
+  var sql1 = `SELECT * FROM cake_user WHERE phone=?`;
+  pool.query(sql1, [phone], (err, result) => {
+    if (err) throw err;
+    if (result.length > 0) {
+      var sql2 = `UPDATE cake_user SET upwd=md5(?) WHERE phone=?`
+      console.log(456)
+      pool.query(sql2, [upwd, phone], (err, result) => {
+        if (err) throw err;
+        res.send(result)
+      })
+    }
+  })
+})
+
 
 // 个人中心 /own
 router.post("/own", (req, res) => {
