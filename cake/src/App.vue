@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <loading></loading>
     <keep-alive>
       <router-view v-if="$route.meta.keepAlive">
         <!-- 这里是会被缓存的视图组件，比如 page1,page2 -->
@@ -11,18 +12,21 @@
   </div>
 </template>
 <script>
+import loading from "./components/loading";
 export default {
   data() {
     return {
-      footer_show: true,
+      footer_show: true
     };
   },
+  components: { loading },
   created() {
     // 设置保存登录状态的uid
     this.$store.commit("setUserId");
+    // this.bus.$emit("loading", true);
+    // console.log(this.$store.getters.getIsLoading);
   },
-  methods: {
-  }
+  methods: {}
 };
 </script>
 <style >
@@ -30,5 +34,22 @@ export default {
 @import "./assets/iconfont/iconfont2.css";
 @import "./assets/iconfont/iconfont3.css";
 </style>
-<style>
+<style lang="stylus" rel="stylesheet/stylus">
+.horizontal-scroll-list-wrap {
+  border: 0 !important;
+
+  .cube-scroll-content {
+    display: inline-block;
+  }
+
+  .list-wrapper {
+    padding: 0 10px;
+    line-height: 60px;
+    white-space: nowrap;
+  }
+
+  .list-item {
+    display: inline-block;
+  }
+}
 </style>

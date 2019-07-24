@@ -6,12 +6,23 @@
     </div>
     <div class="content">
       <div class="logo">
-        <img src="../../public/images/avatar.png" alt />
+        <label for="input">
+          <img :src="`http://xiaoxuan.applinzi.com/${pic}`" class="img" alt v-if="!imgSrc" />
+          <img v-show="imgSrc" :src="imgSrc" class="img" ref="img" />
+          <input
+            type="file"
+            ref="fileBtn"
+            style="display:none;"
+            id="input"
+            accept="image/*"
+            @change="uploadImg"
+          />
+        </label>
       </div>
       <div class="same_style">
         <span class="item_info" v-text="`手机号:${phone}`"></span>
       </div>
-      <mt-field label="真实姓名:" v-model="real_name"></mt-field>
+      <mt-field label="昵称:" v-model="real_name"></mt-field>
       <div class="sex_info">
         性别:
         <label for="male">
@@ -35,12 +46,8 @@
 </template>
 <script>
 // 导入eventBus 兄弟之间通信
-import eventBus from "../eventBus.js";
+// import eventBus from "../eventBus.js";
 export default {
-  // 返回上一级 是回到个人中心页
-  // props:{
-  //   old_active: "me"
-  // },
   data() {
     return {
       birth: "请选择生日", //页面显示的日期
@@ -48,13 +55,16 @@ export default {
       real_name: "",
       gender: "",
       birthday: "", //日期组件选中的值
-      isFirstEnter: false // 是否第一次进入，默认false
+      isFirstEnter: false, // 是否第一次进入，默认false
+      pic: "images/avatar.png",
+      imgInfo: null,
+      imgSrc: null
     };
   },
   created() {
     this.isFirstEnter = true;
     // 获取该用户的个人信息
-    var uid = sessionStorage.getItem("uid");
+    var uid = this.$store.getters.getUserId;
     if (uid) {
       this.axios.post("/user/own", `uid=${uid}`).then(result => {
         // console.log(result);
@@ -62,6 +72,7 @@ export default {
         this.real_name = result.data.data[0].real_name;
         this.real_name = this.real_name == null ? "" : this.real_name;
         this.gender = result.data.data[0].gender;
+        this.pic = result.data.data[0].avatar;
         if (this.gender == 1) {
           male.checked = true;
         } else if (this.gender == 0) {
@@ -77,19 +88,51 @@ export default {
     }
   },
   methods: {
+    // 头像图片上传
+    async uploadImg() {
+      var that = this;
+      const inputFile = await this.$refs.fileBtn.files[0];
+      let res;
+      this.inputFile = inputFile;
+      if (this.inputFile) {
+        let inputFile = this.inputFile;
+        this.imgInfo = Object.assign({}, this.imgInfo, {
+          name: inputFile.name,
+          size: inputFile.size,
+          lastModifiedDate: inputFile.lastModifiedDate.toLocaleString()
+        });
+        const reader = new FileReader();
+        res = reader.readAsDataURL(this.inputFile);
+        reader.onloadend = function() {
+          // var strBase64 = reader.result.substring(84);
+          var strBase64 = reader.result.substring(0);
+          // console.log(strBase64);
+        };
+        reader.onload = function(e) {
+          // console.log(e);
+          that.imgSrc = this.result; // 注意:这里的this.result中,这个this不是vue实例,而是reader对象,所以之前用that接收vue示例  that.imgSrc
+        };
+      } else {
+        return;
+      }
+    },
     jump() {
       this.$router.push("/Index");
-      eventBus.$emit("activeState", "me");
+      // eventBus.$emit("activeState", "me");
     },
     showFormatPicker() {
+      var time = new Date();
+      var year = time.getFullYear();
+      var month = time.getMonth();
+      var date = time.getDate();
       if (!this.formatPicker) {
         this.formatPicker = this.$createDatePicker({
           title: "生日",
-          min: new Date(2008, 7, 8),
-          max: new Date(2020, 9, 20),
+          min: new Date(1920, 0, 1),
+          max: new Date(year, month, date),
           value: new Date(this.birthday),
           format: {
-            year: "YY年",
+            year: "YYYY年",
             month: "MM月",
             date: "D 日"
           },
@@ -104,7 +147,7 @@ export default {
     },
     //存入用户修改的个人信息
     save() {
-      var uid = sessionStorage.getItem("uid");
+      var uid = this.$store.getters.getUserId;
       if (female.checked == true) {
         this.gender = 0;
       } else if (male.checked == true) {
@@ -112,19 +155,29 @@ export default {
       }
       this.birth2 = this.birth.replace(/[\u4e00-\u9fa5]/g, "-");
       this.birth2 = this.birth.split("T")[0];
+      // 图片base64编码
+      var key = encodeURIComponent(this.imgSrc);
       this.axios
         .post(
           "/user/set",
-          `uid=${uid}&real_name=${this.real_name}&gender=${this.gender}&birthday=${this.birth2}`
+          `uid=${uid}&real_name=${this.real_name}&gender=${this.gender}&birthday=${this.birth2}&phone=${this.phone}&imgData=${key}`
         )
         .then(result => {
-          // console.log(result);
+          console.log(result);
+          if (result.data.code == 200) {
+            this.$toast("保存成功");
+          } else {
+            this.$messagebox("保存失败");
+          }
         });
     }
-  },
+  }
 };
 </script>
 <style>
+.hiddenInput {
+  display: none;
+}
 .all_font {
   font: 0.12rem/1.5 "Hiragino Sans GB", STFangsong, "Microsoft YaHei", Helvetica,
     STXihei, Arial, serif;
@@ -211,5 +264,10 @@ export default {
 }
 .mint-field .mint-cell-title {
   width: 1.8rem !important;
+}
+.logo img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
 </style>

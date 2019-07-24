@@ -16,16 +16,22 @@ const detailsRouter = require("./routes/details");
 // 导入cart路由器 购物车
 const cartRouter = require("./routes/cart");
 
+const avatarRouter = require("./routes/avatar");
+
 // 创建服务器
 var server = express();
 
 // 设置端口
-server.listen(7700);
+server.listen(5050);
+
+// 上传文件的限制大小
+server.use(bodyParser.json({ limit: '50mb' }));
+server.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // 使用cors中间件 解决跨域
 server.use(cors({
-  origin: ["http://localhost:7000", "http://127.0.0.1:5500", "http://127.0.0.1:7000","http://176.122.18.101:7000","http://172.24.127.2","*","htt://176.122.18.93"],
-  credentials :true
+  origin: ["http://localhost:7000", "http://127.0.0.1:5500", "http://127.0.0.1:7000", "http://176.122.18.101:7000", "http://172.24.127.2", "*", "htt://176.122.18.93", "http://kirito7.applinzi.com"],
+  credentials: true
 }));
 
 
@@ -54,3 +60,5 @@ server.use("/user", loginRouter);
 server.use("/product", detailsRouter);
 
 server.use("/cart", cartRouter);
+
+server.use("/avatar", avatarRouter);
