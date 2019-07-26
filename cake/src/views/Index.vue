@@ -47,7 +47,9 @@
                   <i class="iconfont">&#xe61a;</i>
                 </span>
                 <span to="#" class="slide">
+                  <!--   -->
                   <i
+                    data-text="店铺营业时间为：8:30-18:00,对每一份甜点心怀敬意,为保证最佳赏味,请提前预约制作。"
                     :class="[isRun?'run':'',!isRun?'paused':'']"
                   >店铺营业时间为：8:30-18:00,对每一份甜点心怀敬意,为保证最佳赏味,请提前预约制作。</i>
                 </span>
@@ -55,7 +57,7 @@
             </div>
             <!-- 推荐 -->
             <router-link to="Details/29">
-              <img src="images/product/64sd78f5465sda417011.jpg" />
+              <img src="images/product/1451241729614010049.png" />
             </router-link>
             <!-- 小食 -->
             <div class="snack-list clearfix">
@@ -80,7 +82,7 @@
                 </li>
               </ul>
             </div>
-            <cube-loading :size="40" v-show="loading"></cube-loading>
+            <cube-loading :size="40" v-if="toBottom" v-show="loading"></cube-loading>
             <div v-if="!toBottom" style="color:#555;font-size:16px;">已经到底了</div>
             <div style="height:1.7rem;"></div>
             <!-- index -->
@@ -212,7 +214,7 @@ export default {
             }
           });
         this.loading = false;
-      }, 2000);
+      }, 1500);
     },
     detail() {
       this.active = "myProduct";
@@ -244,6 +246,13 @@ export default {
   },
   beforeRouteLeave(to, from, next) {
     // console.log("离开");
+    // console.log(to);
+    // if (
+    //   (to.name === "OrderForm" || to.name === "Save") &&
+    //   !this.$store.getters.getIslogin
+    // ) {
+    //   this.$router.push("/Login");
+    // }
     if (to.name === "ProductList") {
       to.query.temp = "Classify";
     }
@@ -337,14 +346,21 @@ img {
 .gonggao .slide i.paused {
   animation-play-state: paused;
 }
+.slide i:after {
+  position: absolute;
+  left: 100%;
+  content: attr(data-text);
+  margin-left: 50px;
+}
 @keyframes translatex {
   0% {
     transform: translateX(0px);
   }
   100% {
-    transform: translateX(-620px);
+    transform: translateX(-670px);
   }
 }
+
 /* 轮播 */
 .mint-swipe {
   height: 200px !important;
